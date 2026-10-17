@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#172b38">
+  <meta name="description" content="飞象超市商品销售与门店对比公开展示版，支持商品查询、分类筛选和维度分析。">
+  <title>飞象销售 · 商品与门店对比</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar" aria-label="主导航与商品类目">
+    <a class="brand" href="#products" aria-label="飞象销售首页"><span class="brand-mark" aria-hidden="true">飞</span><span>飞象销售<small>商品与门店对比</small></span></a>
+    <div class="side-label">工作台</div>
+    <nav class="main-nav" aria-label="页面导航">
+      <a href="#products" data-nav="products"><span aria-hidden="true">▦</span>商品库<span class="nav-arrow" aria-hidden="true">↗</span></a>
+      <a href="#analysis" data-nav="analysis"><span aria-hidden="true">▥</span>维度分析<span class="nav-arrow" aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="category-heading"><span class="side-label">商品类目</span><button type="button" id="clear-category">重置</button></div>
+    <div id="category-tree" class="category-tree"><div class="side-loading">正在载入类目…</div></div>
+    <div class="sidebar-foot"><span class="status-dot" aria-hidden="true"></span>公开展示版<span>READ ONLY</span></div>
+  </aside>
+  <div id="sidebar-shade" class="sidebar-shade" hidden></div>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="topbar-location"><button type="button" class="menu-button" id="menu-button" aria-controls="sidebar" aria-expanded="false" aria-label="打开导航与商品类目">☰</button><span>销售工作台</span><i aria-hidden="true">/</i><b id="breadcrumb">商品库</b></div>
+      <div class="topbar-actions"><span class="snapshot-pill"><span aria-hidden="true">◷</span> 数据快照</span><a class="local-link" href="https://github.com/Wzz79229/feixiang-sales-web" target="_blank" rel="noopener noreferrer">本地完整版 <span aria-hidden="true">↗</span></a></div>
+    </header>
+    <main id="main" tabindex="-1">
+      <div id="load-state" class="load-state" role="status" aria-live="polite"><span class="spinner" aria-hidden="true"></span><h1>正在打开商品销售工作台</h1><p>首次访问需要载入商品数据，请稍候。</p></div>
+      <div id="content" hidden>
+        <div class="page-intro"><div><div class="eyebrow">FEIXIANG · SALES WORKSPACE</div><h1 id="page-title">飞象主商品库</h1><p id="page-description">以飞象商品为主，按 SPU 整理规格，在同一行对比各店数据。</p></div><div class="snapshot-date">数据快照<time id="snapshot-date">—</time></div></div>
+        <div class="public-notice"><span class="notice-icon" aria-hidden="true">◈</span><div><b>随时查询，对比门店</b><span>当前为公开的数据快照；上传识别、修改与匹配确认请在本地完整版操作。候选商品尚未视为同款。</span></div></div>
+        <section id="products-page" aria-label="商品库">
+          <div class="summary-grid" id="catalog-summary"></div>
+          <div class="library-tabs" role="tablist" aria-label="商品库范围"><button id="tab-fx" type="button" role="tab" aria-selected="true" data-library="fx">飞象主商品库 <span id="fx-count">—</span></button><button id="tab-pending" type="button" role="tab" aria-selected="false" data-library="pending">他店待匹配 <span id="pending-count">—</span></button></div>
+          <form class="filter-panel" id="catalog-filters" role="search" aria-label="筛选商品">
+            <label class="search-field"><span>查询商品</span><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="商品名称、规格、条码、SPU / SKU" autocomplete="off"></div></label>
+            <label><span>门店</span><select id="store-filter"><option value="">全部门店</option></select></label>
+            <label><span>匹配状态</span><select id="match-filter"><option value="">全部状态</option></select></label>
+            <label><span>销量</span><select id="sales-filter"><option value="">全部销量</option><option value="with">有销量</option><option value="zero">已知销量为 0</option><option value="unknown">销量未知</option></select></label>
+            <label><span>排序</span><select id="sort-filter"><option value="default">默认顺序</option><option value="sales">月销量从高到低</option><option value="amount">估算销售额从高到低</option><option value="price">售价从低到高</option><option value="stores">门店数从多到少</option></select></label>
+          </form>
+          <div class="results-bar"><div><strong id="result-count">—</strong><span id="category-scope">全部类目</span><button type="button" id="reset-filters" class="text-button">清除筛选</button></div><span>售价单位：元 · 销量口径：月销量</span></div>
+          <p class="table-note" id="catalog-note">筛选命中一个规格时，保留该 SPU 下全部规格；门店列保持完整，方便横向对比。</p>
+          <div class="table-surface"><div class="table-scroll" tabindex="0" aria-label="商品销售表，可横向滚动"><table class="product-table"><thead id="product-head"></thead><tbody id="product-body"></tbody></table></div><div id="catalog-empty" class="empty-state" hidden><span aria-hidden="true">⌕</span><h2>没有找到符合条件的商品</h2><p>试试减少关键词或清除部分筛选。</p><button type="button" class="secondary" id="empty-reset">清除筛选</button></div><div class="pagination" id="pagination"></div></div>
+        </section>
+        <section id="analysis-page" aria-label="维度分析" hidden>
+          <div class="analysis-filter-panel"><fieldset><legend>对比门店</legend><div class="store-choices" id="analysis-stores"></div></fieldset><label><span>对比范围</span><select id="analysis-scope"><option value="all">各店全部商品</option><option value="common">已确认同款 · 至少两店</option></select></label><label><span>主要指标</span><select id="analysis-metric"><option value="amount">估算销售额</option><option value="sales">月销量</option></select></label></div>
+          <div class="analysis-method"><b>数据口径</b><p>估算销售额 = 月销量 × 当前单品售价（有优惠价用优惠价，否则用原价）；它用于规模参考，不是实际成交金额。价格或销量未知的记录不计入金额。带“≥”的销量按已知下限汇总；含月售下限时按下限数值估算金额，不代表收入下限，条件价和起价也不保证实际成交价。各店截图日期、商品覆盖范围可能不同。</p><details><summary>查看数据覆盖与同款对比说明</summary><p id="analysis-coverage"></p><p>“各店全部商品”包含未匹配商品，适合看已收录商品的结构；“已确认同款”只纳入同一商品记录内已确认的多店数据，候选不会参与同款比较。多规格按 SKU 记录汇总；类目分析按商品主类目归集，每条记录只计一次。</p></details></div>
+          <div id="analysis-empty" class="empty-state panel" hidden></div>
+          <div id="analysis-content"><div class="summary-grid" id="analysis-summary"></div><div class="chart-grid"><section class="panel store-panel"><div class="panel-heading"><div><span class="eyebrow">STORE COMPARISON</span><h2 id="store-chart-title">门店估算销售额</h2></div><span class="unit-label" id="store-chart-unit">单位：元</span></div><div id="store-chart" class="store-chart"></div><p class="chart-footnote">只汇总已收录且指标已知的商品记录，不能据此推断门店总营收。</p></section><section class="panel mix-panel"><div class="panel-heading"><div><span class="eyebrow">CATEGORY STRUCTURE</span><h2>品类结构</h2></div><span class="unit-label">前 6 个大类目</span></div><div id="category-mix"></div></section></div><section class="panel category-panel"><div class="panel-heading"><div><span class="eyebrow">CATEGORY COMPARISON</span><h2>大小类目对比</h2></div><span class="unit-label">当前类目范围</span></div><div id="category-legend" class="chart-legend"></div><div id="category-chart"></div></section><section class="panel ranking-panel"><div class="panel-heading"><div><span class="eyebrow">PRODUCT RANKING</span><h2 id="ranking-title">商品估算销售额排名</h2></div><span class="unit-label">前 20 条商品记录</span></div><div class="table-scroll"><table class="ranking-table"><thead id="ranking-head"></thead><tbody id="ranking-body"></tbody></table></div><p class="chart-footnote">同款确认以本地匹配结果为准；未确认的候选仍各自展示，不做价格差和销量差推断。</p></section></div>
+        </section>
+        <footer class="page-footer"><span>飞象销售 · 公开展示版</span><span id="footer-counts"></span><a href="https://github.com/Wzz79229/feixiang-sales-web" target="_blank" rel="noopener noreferrer">源码与本地完整版 ↗</a></footer>
+      </div>
+    </main>
+  </div>
+</div>
+<dialog class="detail-dialog" id="detail-dialog" aria-labelledby="detail-title"><div class="dialog-header"><div><span class="eyebrow">PRODUCT DETAIL</span><h2 id="detail-title">商品详情</h2></div><button type="button" class="icon-button" data-close="detail-dialog" aria-label="关闭商品详情">×</button></div><div id="detail-body"></div><div class="dialog-footer"><span>公开展示版只读；修改与匹配确认请使用本地完整版。</span><button type="button" class="secondary" data-close="detail-dialog">关闭</button></div></dialog>
+<dialog class="image-dialog" id="image-dialog" aria-labelledby="image-title"><div class="dialog-header"><h2 id="image-title">商品图片</h2><button type="button" class="icon-button" data-close="image-dialog" aria-label="关闭商品图片">×</button></div><div id="image-body"></div></dialog>
+</body>
+</html>

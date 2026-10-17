@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.log
+.env
+*.dpapi
+*.sqlite3
+*.sqlite
+*.db
