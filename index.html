@@ -7,8 +7,8 @@
   <meta name="description" content="飞象超市商品销售与门店对比公开展示版，支持商品查询、分类筛选和维度分析。">
   <title>飞象销售 · 商品与门店对比</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261031-1">
-  <script src="app.js?v=20261031-1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261031-2">
+  <script src="app.js?v=20261031-2" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
@@ -47,6 +47,7 @@
           </form>
           <div class="results-bar"><div><strong id="result-count">—</strong><span id="category-scope">全部类目</span><button type="button" id="reset-filters" class="text-button">清除筛选</button></div><span>售价单位：元 · 销量口径：月销量</span></div>
           <p class="table-note" id="catalog-note">筛选命中一个规格时，保留该 SPU 下全部规格；门店列保持完整，方便横向对比。</p>
+          <div id="pagination-top" class="pagination pagination-top" role="navigation" aria-label="商品列表上方分页"></div>
           <div class="table-surface"><div class="table-scroll" tabindex="0" aria-label="商品销售表，可横向滚动"><table class="product-table"><thead id="product-head"></thead><tbody id="product-body"></tbody></table></div><div id="catalog-empty" class="empty-state" hidden><span aria-hidden="true">⌕</span><h2>没有找到符合条件的商品</h2><p>试试减少关键词或清除部分筛选。</p><button type="button" class="secondary" id="empty-reset">清除筛选</button></div><div class="pagination" id="pagination"></div></div>
         </section>
         <section id="analysis-page" aria-label="维度分析" hidden>
