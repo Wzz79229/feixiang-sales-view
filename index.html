@@ -7,8 +7,8 @@
   <meta name="description" content="飞象超市商品销售与门店对比公开展示版，支持商品查询、分类筛选和维度分析。">
   <title>飞象销售 · 商品与门店对比</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261031-1">
+  <script src="app.js?v=20261031-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
@@ -40,7 +40,7 @@
           <div class="library-tabs" role="tablist" aria-label="商品库范围"><button id="tab-fx" type="button" role="tab" aria-selected="true" data-library="fx">飞象主商品库 <span id="fx-count">—</span></button><button id="tab-pending" type="button" role="tab" aria-selected="false" data-library="pending">他店待匹配 <span id="pending-count">—</span></button></div>
           <form class="filter-panel" id="catalog-filters" role="search" aria-label="筛选商品">
             <label class="search-field"><span>查询商品</span><div class="search-input"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="商品名称、规格、条码、SPU / SKU" autocomplete="off"></div></label>
-            <label><span>门店</span><select id="store-filter"><option value="">全部门店</option></select></label>
+            <div class="store-filter-field"><span id="store-filter-label">门店（多选）</span><details id="store-filter" class="store-picker"><summary aria-labelledby="store-filter-label store-selection"><span id="store-selection">全部门店</span></summary><div class="store-options"><label class="store-all"><input id="store-select-all" type="checkbox" checked>全选门店</label><div id="store-choices" role="group" aria-label="选择门店"></div><p>显示任一所选门店的商品</p></div></details></div>
             <label><span>匹配状态</span><select id="match-filter"><option value="">全部状态</option></select></label>
             <label><span>销量</span><select id="sales-filter"><option value="">全部销量</option><option value="with">有销量</option><option value="zero">已知销量为 0</option><option value="unknown">销量未知</option></select></label>
             <label><span>排序</span><select id="sort-filter"><option value="default">默认顺序</option><option value="sales">月销量从高到低</option><option value="amount">估算销售额从高到低</option><option value="price">售价从低到高</option><option value="stores">门店数从多到少</option></select></label>
