@@ -7,8 +7,8 @@
   <meta name="description" content="飞象超市商品销售与门店对比公开展示版，支持商品查询、分类筛选和维度分析。">
   <title>飞象销售 · 商品与门店对比</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261103-1">
-  <script src="app.js?v=20261103-1" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261114-1">
+  <script src="app.js?v=20261114-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">跳到主要内容</a>
@@ -52,7 +52,7 @@
         </section>
         <section id="analysis-page" aria-label="维度分析" hidden>
           <div class="analysis-filter-panel"><fieldset><legend>对比门店</legend><div class="store-choices" id="analysis-stores"></div></fieldset><label><span>对比范围</span><select id="analysis-scope"><option value="all">各店全部商品</option><option value="common">已确认同款 · 至少两店</option></select></label><label><span>主要指标</span><select id="analysis-metric"><option value="amount">估算销售额</option><option value="sales">月销量</option></select></label></div>
-          <div class="analysis-method"><b>数据口径</b><p>估算销售额 = 月销量 × 当前单品售价（有优惠价用优惠价，否则用原价）；它用于规模参考，不是实际成交金额。价格或销量未知的记录不计入金额。带“≥”的销量按已知下限汇总；含月售下限时按下限数值估算金额，不代表收入下限，条件价和起价也不保证实际成交价。各店截图日期、商品覆盖范围可能不同。</p><details><summary>查看数据覆盖与同款对比说明</summary><p id="analysis-coverage"></p><p>“各店全部商品”包含未匹配商品，适合看已收录商品的结构；“已确认同款”只纳入同一商品记录内已确认的多店数据，候选不会参与同款比较。多规格按 SKU 记录汇总；类目分析按商品主类目归集，每条记录只计一次。</p></details></div>
+          <div class="analysis-method"><b>数据口径</b><p>估算销售额 = 月销量 × 当前单品售价（有优惠价用优惠价，否则用原价）；它用于规模参考，不是实际成交金额。价格或销量未知的记录不计入金额。带“≥”的销量按已知下限汇总；含月售下限时按下限数值估算金额，不代表收入下限，条件价和起价也不保证实际成交价。各店统计日期和商品覆盖范围可能不同。带统计日期的月度销售报表纳入销量汇总，估算销售额仅使用截图商品的单品售价和月销量。</p><details><summary>查看数据覆盖与同款对比说明</summary><p id="analysis-coverage"></p><p>“各店全部商品”包含未匹配商品，适合看已收录商品的结构；“已确认同款”只纳入同一商品记录内已确认的多店数据，候选不会参与同款比较。多规格按 SKU 记录汇总；类目分析按商品主类目归集，每条记录只计一次。</p></details></div>
           <div id="analysis-empty" class="empty-state panel" hidden></div>
           <div id="analysis-content"><div class="summary-grid" id="analysis-summary"></div><div class="chart-grid"><section class="panel store-panel"><div class="panel-heading"><div><span class="eyebrow">STORE COMPARISON</span><h2 id="store-chart-title">门店估算销售额</h2></div><span class="unit-label" id="store-chart-unit">单位：元</span></div><div id="store-chart" class="store-chart"></div><p class="chart-footnote">只汇总已收录且指标已知的商品记录，不能据此推断门店总营收。</p></section><section class="panel mix-panel"><div class="panel-heading"><div><span class="eyebrow">CATEGORY STRUCTURE</span><h2>品类结构</h2></div><span class="unit-label">前 6 个大类目</span></div><div id="category-mix"></div></section></div><section class="panel category-panel"><div class="panel-heading"><div><span class="eyebrow">CATEGORY COMPARISON</span><h2>大小类目对比</h2></div><span class="unit-label">当前类目范围</span></div><div id="category-legend" class="chart-legend"></div><div id="category-chart"></div></section><section class="panel ranking-panel"><div class="panel-heading"><div><span class="eyebrow">PRODUCT RANKING</span><h2 id="ranking-title">商品估算销售额排名</h2></div><span class="unit-label">前 20 条商品记录</span></div><div class="table-scroll"><table class="ranking-table"><thead id="ranking-head"></thead><tbody id="ranking-body"></tbody></table></div><p class="chart-footnote">同款确认以本地匹配结果为准；未确认的候选仍各自展示，不做价格差和销量差推断。</p></section></div>
         </section>
